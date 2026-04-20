@@ -39,3 +39,103 @@ chat model : llm + 4 layers
 4. tool/function calling (model can call apis run code fetch external data)
 
 
+from langchain_openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+llm = OpenAI(model="gpt-3.5-turbo-instruct", temperature=0.9)
+# OPENAI_API_KEY is set in the .env file, so we don't need to pass it here
+llm.invoke("what is capital of karnataka?")
+print(result)
+
+## chatmodels 
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+
+# chatModels inherit from BaseLanguageModel, so they have all the same methods and properties
+# llms inherit from BaseLanguageModel, so they have all the same methods and properties
+# chatModels have some additional methods and properties that are specific to chat models
+
+load_dotenv()
+chat = ChatOpenAI(model="gpt-4", temperature=0.9)
+# OPENAI_API_KEY is set in the .env file, so we don't need to pass it here
+result = chat.invoke("what is capital of karnataka?")
+print(result.content) 
+
+### anthropic 
+from langchain_anthropic import ChatAnthropic
+from dotenv import load_dotenv  
+load_dotenv()
+chat = ChatAnthropic(model="claude-2", temperature=0.9)
+result = chat.invoke("what is capital of karnataka?")
+print(result.content)
+
+## gemini 
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+load_dotenv()
+chat = ChatGoogleGenerativeAI(model="gemini-flash-lite-latest", temperature=1.9)
+result = chat.invoke("what is capital of karnataka?")
+print(result.content)
+
+Temperature parameter 
+In AI language models, **temperature** controls how predictable or creative the output is by adjusting how strongly the model favors the most likely next word. A **low temperature (e.g., 0.2)** makes responses more consistent and factual, while a **high temperature (e.g., 0.9)** produces more varied and creative but sometimes less accurate text.
+
+**Examples:**
+
+* Prompt: *“The sky is…”*
+
+  * Low temperature (0.2): “The sky is blue.”
+  * High temperature (0.9): “The sky is a swirling canvas of colors at dusk.”
+
+* Prompt: *“Write a tagline for coffee”*
+
+  * Low temperature: “Fresh coffee for your day.”
+  * High temperature: “Awaken your soul with every bold, aromatic sip.”
+
+
+## Working with open source models
+opensource language models are freely available ai models that can be downloaded modified fine tuned and deployed without restrictions from a central provider 
+unline closed source models such as open ais gpt 4 anthropics clausee or googles gemini opensource models allow full control and customization 
+
+# Open-Source vs Closed-Source AI Models
+
+## 🔍 Comparison
+
+| Feature        | Open-Source Models                                      | Closed-Source Models                                      |
+|---------------|----------------------------------------------------------|-----------------------------------------------------------|
+| **Cost**      | Free to use (no API costs)                               | Paid API usage (e.g., OpenAI charges per usage)           |
+| **Control**   | Can modify, fine-tune, and deploy anywhere               | Locked to provider's infrastructure                       |
+| **Data Privacy** | Runs locally (no data sent to external servers)      | Sends queries to provider's servers                       |
+| **Customization** | Can fine-tune on specific datasets                  | Limited or no fine-tuning access in most cases            |
+| **Deployment** | Can be deployed on on-premise servers or cloud          | Must use vendor's API                                     |
+
+---
+
+## 🚀 Some Famous Open-Source Models
+
+| Model           | Developer        | Parameters        | Best Use Case                          |
+|-----------------|------------------|-------------------|----------------------------------------|
+| LLaMA 2         | Meta AI          | 7B / 13B / 70B    | General-purpose text generation        |
+| Mixtral 8x7B    | Mistral AI       | 8x7B (MoE)        | Efficient and fast responses           |
+| Mistral 7B      | Mistral AI       | 7B                | Strong small-scale model               |
+| Falcon          | TII (UAE)        | 7B / 40B          | High-speed inference                   |
+| BLOOM           | BigScience       | 176B              | Multilingual text generation           |
+| GPT-J           | EleutherAI       | 6B                | Lightweight and efficient              |
+| GPT-NeoX        | EleutherAI       | 20B               | Large-scale applications               |
+
+---
+
+## 💡 Notes
+
+- Open-source models are ideal for **research, customization, and privacy-sensitive applications**.
+- Closed-source models are better suited for **ease of use, scalability, and production-ready APIs**.
+- Compact models (like Mistral 7B) are great for **chatbots and low-resource environments**.
+
+### where to find these models 
+hugging face the largest repository of open source llms 
+
+ways to use the open sourcec models 
+1. using HF inference api
+2. Running locally 
