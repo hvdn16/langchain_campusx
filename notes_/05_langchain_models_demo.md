@@ -163,4 +163,18 @@ print(result.content)
 available models  https://huggingface.co/models?pipeline_tag=text-generation&num_parameters=min:0,max:3B&inference_provider=all&sort=trending
 
 ## locally downloading 
+# locally running huggingface models
+from langchain_huggingface import ChatHuggingFace, HuggingFacePipeline
+llm = HuggingFacePipeline.from_model_id(
+    model_id="google/gemma-3-1b-it",
+    task="text-generation",
+    pipeline_kwargs={"max_new_tokens": 512, "temperature": 0.9},
+)
+model = ChatHuggingFace(llm=llm)
+result = model.invoke("what is capital of karnataka?, can you answer in kannada?")
+print(result.content)
+
+
+
+## Embedding models 
 
