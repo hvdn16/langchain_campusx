@@ -139,3 +139,28 @@ hugging face the largest repository of open source llms
 ways to use the open sourcec models 
 1. using HF inference api
 2. Running locally 
+
+
+## Disadvantages 
+High hardware requirements : running large models requires expensive gpus
+setup complexity : installation of dependencies like pytorch cuda transformers etc 
+lack of rhlf: most open srouce models dont havefine tuning with human feedback making them weaker in instruction following 
+limited multimodal abilities : open models dont support images audio or video like gpt 4v 
+
+
+## Coding 
+create a token : HUGGINGFACEHUB_API_TOKEN and place it in .env
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+from dotenv import load_dotenv
+load_dotenv()
+llm=HuggingFaceEndpoint(
+    repo_id='meta-llama/Llama-3.2-1B-Instruct',
+    task='text-generation',
+)
+model = ChatHuggingFace(llm=llm)
+result = model.invoke("what is capital of karnataka?")
+print(result.content)
+available models  https://huggingface.co/models?pipeline_tag=text-generation&num_parameters=min:0,max:3B&inference_provider=all&sort=trending
+
+## locally downloading 
+
